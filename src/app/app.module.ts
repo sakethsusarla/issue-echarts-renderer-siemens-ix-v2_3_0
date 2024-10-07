@@ -7,7 +7,6 @@ import * as echarts from 'echarts/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import {
   AppComponent,
-  ConnectedOnboardsSummaryComponent,
   LineChartComponent,
 } from 'src/app/components';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +15,6 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     LineChartComponent,
-    ConnectedOnboardsSummaryComponent,
   ],
   imports: [AppRoutingModule, BrowserModule, HttpClientModule, IxModule.forRoot(), NgxEchartsModule.forRoot({ echarts })],
   providers: [

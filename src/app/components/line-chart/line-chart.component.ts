@@ -1,8 +1,6 @@
 import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { EChartsOption, SeriesOption } from 'echarts';
 import { Subscription } from 'rxjs';
-import { DEFAULT_THEME, calculateLabelRotationAngle, formatToReaderFriendlyDateLabel, formatToReaderFriendlyDateTooltip, isValidString } from 'src/app/core';
-import { MessengerService } from 'src/app/services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -23,7 +21,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
   public updateOptions: EChartsOption = {};
   public isLoading = true;
   public options: EChartsOption = {};
-  public theme: string = DEFAULT_THEME === 'theme-brand-light' ? 'brand-light' : 'brand-dark';
 
   @Input()
   public get yAxisName() {
@@ -46,7 +43,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     return this._dataUnit;
   }
   public set dataUnit(value) {
-    isValidString(value) ? (this._dataUnit = value) : (this._dataUnit = '');
+    this._dataUnit = value;
   }
 
   @Input()
@@ -83,24 +80,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private messengerService: MessengerService) {
-    this._selectedThemeSubscription = this.messengerService.selectedThemeObservable$.subscribe({
-      next: (newTheme) => {
-        if (newTheme) {
-          if (newTheme === 'theme-brand-dark') {
-            this.theme = 'brand-dark';
-          } else {
-            this.theme = 'brand-light';
-          }
-        }
-      },
-    });
-
-    this._selectedServerSubscription = this.messengerService.selectedServerNameObservable$.subscribe({
-      next: (selectedServer) => {
-        this._selectedServer = selectedServer;
-      },
-    });
+  constructor() {
   }
 
   ngOnDestroy(): void {
@@ -111,7 +91,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.options = {
       title: {
-        show: isValidString(this.header),
+        show: true,
         text: this.header,
         textStyle: {
           fontWeight: 'bold',
@@ -132,7 +112,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
         // If no series matches the selected server, return an empty string
         if (filteredParams.length === 0) return '';
 
-        const date = formatToReaderFriendlyDateTooltip(filteredParams[0].axisValue);
+        const date = filteredParams[0].axisValue;
         const tooltipItems = filteredParams.map((param) => {
           return `
             <div style="display: flex; justify-content: space-between;">
@@ -175,7 +155,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
             show: !this.hideDetails, // Show axis pointer label if hideDetails is false
             formatter: function (params: any) {
               const date = new Date(params.value);
-              return formatToReaderFriendlyDateTooltip(date);
+              return date.toLocaleString();
             },
           },
           handle: {
@@ -187,10 +167,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
         },
         axisLabel: {
           show: !this.hideDetails, // Show axis labels if hideDetails is false
-          rotate: calculateLabelRotationAngle(),
           formatter: function (value: any) {
             const date = new Date(value);
-            return formatToReaderFriendlyDateLabel(date);
+            return date.toISOString();
           },
         },
       },
@@ -210,17 +189,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
         },
       },
       series: [],
-    };
-  }
-
-  @HostListener('window:resize')
-  onResize() {
-    this.updateOptions = {
-      xAxis: {
-        axisLabel: {
-          rotate: calculateLabelRotationAngle(),
-        },
-      },
     };
   }
 }
