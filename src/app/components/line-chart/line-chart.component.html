@@ -1,4 +1,4 @@
-<div class="h-full flex items-center justify-center" style="border: 1px solid blue; margin: 1px;">
+<div *ngIf="isLoading" class="h-full flex items-center justify-center">
     <ix-spinner size="large"></ix-spinner>
 </div>
-<div class="h-full" echarts [options]="options" [merge]="updateOptions" style="border: 1px solid green; margin: 1px;"></div>
+<div *ngIf="!isLoading" class="h-full" echarts [options]="options" [merge]="updateOptions"></div>

@@ -1,4 +1,9 @@
-import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { EChartsOption, SeriesOption } from 'echarts';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -80,8 +85,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnDestroy(): void {
     this._selectedThemeSubscription?.unsubscribe();
@@ -107,7 +111,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
         const selectedServer = this._selectedServer;
 
         // If there is no selected server, show all series normally
-        const filteredParams = selectedServer ? params.filter((param) => param.seriesName === selectedServer) : params;
+        const filteredParams = selectedServer
+          ? params.filter((param) => param.seriesName === selectedServer)
+          : params;
 
         // If no series matches the selected server, return an empty string
         if (filteredParams.length === 0) return '';
@@ -121,7 +127,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
             </div>
           `;
         });
-      
+
         return `
           <div style="display: flex; justify-content: space-between; font-weight: bold;">
             <span>${date}</span>
@@ -142,7 +148,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
       xAxis: {
         name: this.xAxisName,
         type: 'time',
-        interval: environment.dataRententionTimeInSeconds / environment.pollingIntervalInSeconds,
+        interval:
+          environment.dataRententionTimeInSeconds /
+          environment.pollingIntervalInSeconds,
         axisTick: {
           show: !this.hideDetails,
         },
