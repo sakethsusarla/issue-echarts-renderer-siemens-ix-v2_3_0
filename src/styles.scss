@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import '@siemens/ix-icons/dist/css/ix-icons.css';
+@import '@siemens/ix/dist/siemens-ix/siemens-ix.css';
+@import '@siemens/ix-brand-theme/dist/ix-brand-theme/ix-brand-theme.css';
+
+body {
+    height: 100vh;
+    user-select: none;
+}
