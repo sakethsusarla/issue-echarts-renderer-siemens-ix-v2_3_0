@@ -2,3 +2,5 @@
     <ix-spinner size="large"></ix-spinner>
 </div>
 <div *ngIf="!isLoading" class="h-full" echarts [options]="options" [merge]="updateOptions"></div>
+<p>isLoading: {{ isLoading | json }}</p>
+<p>This line chart renders with siemens/ix-echarts ^1.6.0 but not ^2.3.0</p>
