@@ -143,9 +143,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
       xAxis: {
         name: this.xAxisName,
         type: 'time',
-        interval:
-          environment.dataRententionTimeInSeconds /
-          environment.pollingIntervalInSeconds,
+        interval: 12,
         axisTick: {
           show: !this.hideDetails,
         },
