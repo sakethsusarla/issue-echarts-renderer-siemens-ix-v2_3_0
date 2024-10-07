@@ -1,12 +1,7 @@
-<ix-button class="mb-2" ghost variant="Primary" *ngIf="!disableLinks"
-    [routerLink]="disableLinks ? null : '/diagnostics/connected-onboard-units'">
+<ix-button class="mb-2" ghost variant="Primary">
     {{ connectedOnboardsTitleText }}
 </ix-button>
-<div class="relative h-128 overflow-y-auto" [routerLink]="disableLinks ? null : '/diagnostics/connected-onboard-units'"
-    [ngClass]="{'p-2 max-h-128 rounded border-[1px]': !disableLinks}"
-    [class.border-ix-brand-dark-theme-border-color]="selectedTheme === 'theme-brand-dark'"
-    [class.border-ix-brand-light-theme-border-color]="selectedTheme === 'theme-brand-light'">
-    <div *ngIf="!disableLinks" class="absolute inset-0 h-full w-full z-10 cursor-pointer hover:bg-teal-200/[0.1]"></div>
-    <line-chart class="h-64" [inputData]="onboardsLineChartDataMap" [hideDetails]="!disableLinks"
-        [header]="!disableLinks ? 'Connected Onboard Units' : ''" yAxisName="trains" xAxisName="time"></line-chart>
+<div class="relative h-128 overflow-y-auto">
+    <line-chart class="h-64" [inputData]="onboardsLineChartDataMap" [hideDetails]="false" yAxisName="trains"
+        xAxisName="time"></line-chart>
 </div>
