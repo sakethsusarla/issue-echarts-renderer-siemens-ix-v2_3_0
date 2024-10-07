@@ -1,66 +1,20 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption, SeriesOption } from 'echarts';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'line-chart',
   templateUrl: './line-chart.component.html',
 })
-export class LineChartComponent implements OnInit, OnDestroy {
-  private _selectedThemeSubscription!: Subscription;
-  private _selectedServerSubscription!: Subscription;
-  private _selectedServer: string | null = null;
-  private _hideDetails = false;
-  private _header = '';
-  private _xAxisName = 'time';
-  private _yAxisName = 'devices';
+export class LineChartComponent implements OnInit {
+  hideDetails = false;
+  header = 'Minimal Line Chart Example';
+  xAxisName = 'time';
+  yAxisName = 'devices';
   private _dataUnit: string = '';
   public toggleChart = false;
   public updateOptions: EChartsOption = {};
   public isLoading = true;
   public options: EChartsOption = {};
-
-  @Input()
-  public get yAxisName() {
-    return this._yAxisName;
-  }
-  public set yAxisName(value) {
-    this._yAxisName = value;
-  }
-
-  @Input()
-  public get xAxisName() {
-    return this._xAxisName;
-  }
-  public set xAxisName(value) {
-    this._xAxisName = value;
-  }
-
-  @Input()
-  public get dataUnit() {
-    return this._dataUnit;
-  }
-  public set dataUnit(value) {
-    this._dataUnit = value;
-  }
-
-  @Input()
-  public get header(): string {
-    return this._header;
-  }
-
-  public set header(value: string) {
-    this._header = value;
-  }
-
-  @Input()
-  public get hideDetails(): boolean {
-    return this._hideDetails;
-  }
-
-  public set hideDetails(value: boolean) {
-    this._hideDetails = value;
-  }
 
   @Input()
   public get inputData(): Map<string, SeriesOption> {
@@ -80,10 +34,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
-  ngOnDestroy(): void {
-    this._selectedThemeSubscription?.unsubscribe();
-    this._selectedServerSubscription?.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -134,36 +85,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
         left: '7.5%', // Adjust the left offset to match the axes
         bottom: 30, // Distance from the bottom of the chart
         textAlign: 'left', // Align the title to the left
-      },
-      formatter: (params: any[]) => {
-        if (params.length === 0) return '';
-
-        const selectedServer = this._selectedServer;
-
-        // If there is no selected server, show all series normally
-        const filteredParams = selectedServer
-          ? params.filter((param) => param.seriesName === selectedServer)
-          : params;
-
-        // If no series matches the selected server, return an empty string
-        if (filteredParams.length === 0) return '';
-
-        const date = filteredParams[0].axisValue;
-        const tooltipItems = filteredParams.map((param) => {
-          return `
-            <div style="display: flex; justify-content: space-between;">
-              <span>${param.marker} ${param.seriesName}</span>
-              <span>${param.value[1]} ${this._dataUnit}</span>
-            </div>
-          `;
-        });
-
-        return `
-          <div style="display: flex; justify-content: space-between; font-weight: bold;">
-            <span>${date}</span>
-          </div>
-          ${tooltipItems.join('')}
-        `;
       },
       tooltip: {
         show: !this.hideDetails, // Show tooltip if hideDetails is false
