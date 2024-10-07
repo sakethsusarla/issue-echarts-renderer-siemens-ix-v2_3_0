@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { EChartsOption, SeriesOption } from 'echarts';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
