@@ -9,9 +9,7 @@ import {
   AppComponent,
   ConnectedOnboardsSummaryComponent,
   LineChartComponent,
-  ResolutionNotSupportedDialogComponent,
 } from 'src/app/components';
-import { NullCheckPipe } from 'src/app/pipes';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -19,8 +17,6 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     LineChartComponent,
     ConnectedOnboardsSummaryComponent,
-    NullCheckPipe,
-    ResolutionNotSupportedDialogComponent,
   ],
   imports: [AppRoutingModule, BrowserModule, HttpClientModule, IxModule.forRoot(), NgxEchartsModule.forRoot({ echarts })],
   providers: [
