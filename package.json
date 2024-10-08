@@ -18,11 +18,12 @@
     "@angular/forms": "^15.2.0",
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
+    "@siemens/ix": "^2.5.0",
     "@siemens/ix-angular": "^2.5.0",
     "@siemens/ix-echarts": "^2.3.0",
     "@siemens/ix-icons": "^2.2.0",
-    "ngx-echarts": "~15.0.3",
     "echarts": "^5.5.1",
+    "ngx-echarts": "~15.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.5.2",
     "zone.js": "~0.12.0"
