@@ -13,7 +13,8 @@ import { LineChartComponent } from './line-chart.component';
   imports: [
     BrowserModule,
     IxModule.forRoot(),
-    NgxEchartsModule.forRoot({ echarts }),
+    // FIX
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts'), }),
     BrowserAnimationsModule
   ],
   providers: [],
